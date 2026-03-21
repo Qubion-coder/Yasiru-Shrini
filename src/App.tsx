@@ -116,7 +116,7 @@ export default function App() {
     setIsEnvelopeOpened(true);
     setTimeout(() => {
       setShowWebsite(true);
-    }, 2500); // Delay to show the card before loading site
+    }, 5000); // Delay to show the card before loading site
   };
 
   const { scrollYProgress } = useScroll();
@@ -172,7 +172,7 @@ export default function App() {
           transition={{ duration: 1 }}
           className="fixed inset-0 z-[200] flex flex-col items-center justify-center overflow-hidden"
         >
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(212,175,55,0.22),transparent_38%),radial-gradient(circle_at_80%_75%,rgba(184,134,11,0.18),transparent_40%),linear-gradient(140deg,#fdf9f2_0%,#f5edde_50%,#f1e6d4_100%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(138,109,59,0.25),transparent_38%),radial-gradient(circle_at_80%_75%,rgba(92,74,40,0.22),transparent_40%),linear-gradient(140deg,#d8cfbc_0%,#c4baaa_50%,#b5a992_100%)]" />
 
           {[...Array(10)].map((_, i) => (
             <motion.div
@@ -233,7 +233,7 @@ export default function App() {
               transition={{ duration: 1.5, ease: "easeOut" }}
               className="relative w-[280px] h-[280px] md:w-[400px] md:h-[400px] flex flex-col items-center justify-center"
             >
-              <svg viewBox="0 0 200 200" className="absolute inset-0 w-full h-full text-gold fill-none stroke-current stroke-[0.6] drop-shadow-[0_0_14px_rgba(212,175,55,0.35)]">
+              <svg viewBox="0 0 200 200" className="absolute inset-0 w-full h-full text-gold fill-none stroke-current stroke-[0.6] drop-shadow-[0_0_14px_rgba(138,109,59,0.4)]">
                 <path d="M100 180c-20-20-80-70-80-110 0-30 20-50 50-50 15 0 25 10 30 15 5-5 15-15 30-15 30 0 50 20 50 50 0 40-60 90-80 110z" />
               </svg>
               
@@ -431,7 +431,7 @@ export default function App() {
           </section>
 
           {/* Countdown: Minimalist Data Grid */}
-          <section className="py-32 bg-white relative">
+          <section className="py-32 bg-[#e5ded0] relative">
             <div className="max-w-6xl mx-auto px-8">
               <div className="grid grid-cols-2 md:grid-cols-4 border border-gold/20">
                 {Object.entries(timeLeft).map(([unit, value], index) => (
@@ -586,7 +586,7 @@ export default function App() {
           </section>
 
           {/* RSVP: Minimal Luxury */}
-          <section className="py-40 bg-white border-t border-gold/10">
+          <section className="py-40 bg-[#f2eadc] border-t border-gold/10">
             <div className="max-w-2xl mx-auto px-8 text-center">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -610,7 +610,7 @@ export default function App() {
                         setRsvpStatus("idle");
                         setRsvpForm((prev) => ({ ...prev, fullName: e.target.value }));
                       }}
-                      className="w-full bg-transparent border border-stone-200 rounded-2xl px-5 py-4 focus:border-gold outline-none transition-all font-serif italic text-xl placeholder:text-stone-300"
+                      className="w-full bg-transparent border border-gold/30 rounded-2xl px-5 py-4 focus:border-gold outline-none transition-all font-serif italic text-xl placeholder:text-stone-500"
                     />
                   </div>
 
@@ -622,7 +622,7 @@ export default function App() {
                         setRsvpStatus("idle");
                         setRsvpForm((prev) => ({ ...prev, guests: e.target.value }));
                       }}
-                      className="w-full bg-transparent border border-stone-200 rounded-2xl px-5 py-4 focus:border-gold outline-none transition-all text-stone-500"
+                      className="w-full bg-transparent border border-gold/30 rounded-2xl px-5 py-4 focus:border-gold outline-none transition-all text-stone-600"
                     >
                       <option>1 Guest (Just Me)</option>
                       <option>2 Guests</option>
@@ -641,7 +641,7 @@ export default function App() {
                         setRsvpStatus("idle");
                         setRsvpForm((prev) => ({ ...prev, dietaryNotes: e.target.value }));
                       }}
-                      className="w-full bg-transparent border border-stone-200 rounded-2xl px-5 py-4 focus:border-gold outline-none transition-all text-stone-500 resize-none"
+                      className="w-full bg-transparent border border-gold/30 rounded-2xl px-5 py-4 focus:border-gold outline-none transition-all text-stone-600 resize-none"
                     />
                   </div>
 
@@ -685,7 +685,7 @@ export default function App() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 onSubmit={handleWishSubmit}
-                className="bg-white border border-gold/20 rounded-3xl p-8 md:p-10 space-y-6"
+                className="bg-[#f2eadc] border border-gold/20 rounded-3xl p-8 md:p-10 space-y-6"
               >
                 <input
                   type="text"
@@ -695,7 +695,7 @@ export default function App() {
                     setWishStatus("idle");
                     setWishForm((prev) => ({ ...prev, name: e.target.value }));
                   }}
-                  className="w-full bg-transparent border border-stone-200 rounded-2xl px-5 py-4 focus:border-gold outline-none transition-all"
+                  className="w-full bg-transparent border border-gold/30 rounded-2xl px-5 py-4 focus:border-gold outline-none transition-all"
                 />
                 <textarea
                   rows={5}
@@ -705,7 +705,7 @@ export default function App() {
                     setWishStatus("idle");
                     setWishForm((prev) => ({ ...prev, message: e.target.value }));
                   }}
-                  className="w-full bg-transparent border border-stone-200 rounded-2xl px-5 py-4 focus:border-gold outline-none transition-all resize-none"
+                  className="w-full bg-transparent border border-gold/30 rounded-2xl px-5 py-4 focus:border-gold outline-none transition-all resize-none"
                 />
                 <button
                   type="submit"
