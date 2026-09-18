@@ -12,22 +12,30 @@ import { motion, useScroll, useTransform, AnimatePresence } from "motion/react";
 import { Calendar, Clock, MapPin, Heart, Volume2, VolumeX, Sparkles } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 
-const WEDDING_DATE = new Date("2026-05-28T18:30:00");
-const GOOGLE_SCRIPT_WEB_APP_URL = import.meta.env.VITE_GOOGLE_SCRIPT_WEB_APP_URL ?? "";
+const WEDDING_DATE = new Date("2026-12-14T09:30:00");
+const GOOGLE_SCRIPT_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyD_0AG5814ADff37DqPP8qdNNArxs_uCnMDA7jDNFWWqyV60G4I7fQ0udF3ewLPEmq3g/exec";
 
 export default function App() {
+  const searchParams = new URLSearchParams(window.location.search);
+  const guestName = searchParams.get('n');
+  const guestPrefix = searchParams.get('p');
+  
+  const fullGuestName = guestName 
+    ? `${guestPrefix && guestPrefix !== 'No Prefix' ? guestPrefix + ' ' : ''}${guestName}` 
+    : "";
+
   const [isLoading, setIsLoading] = useState(true);
   const [isEnvelopeOpened, setIsEnvelopeOpened] = useState(false);
   const [showWebsite, setShowWebsite] = useState(false);
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
   const [isMuted, setIsMuted] = useState(true);
   const [rsvpForm, setRsvpForm] = useState({
-    fullName: "",
+    fullName: fullGuestName,
     guests: "1 Guest (Just Me)",
     dietaryNotes: ""
   });
   const [wishForm, setWishForm] = useState({
-    name: "",
+    name: fullGuestName,
     message: ""
   });
   const [rsvpStatus, setRsvpStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
@@ -205,7 +213,7 @@ export default function App() {
                 opacity: [0.25, 0.5, 0.25]
               }}
               transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute w-[340px] h-[340px] md:w-[520px] md:h-[520px] rounded-full border border-gold/20"
+              className="absolute w-[400px] h-[400px] md:w-[600px] md:h-[600px] rounded-full border border-gold/20"
             />
 
             {/* Pulsing Heart Frame */}
@@ -219,7 +227,7 @@ export default function App() {
                 repeat: Infinity,
                 ease: "easeInOut"
               }}
-              className="absolute w-[300px] h-[300px] md:w-[450px] md:h-[450px]"
+              className="absolute w-[360px] h-[360px] md:w-[540px] md:h-[540px]"
             >
               <svg viewBox="0 0 200 200" className="w-full h-full text-gold/20 fill-current">
                 <path d="M100 180c-20-20-80-70-80-110 0-30 20-50 50-50 15 0 25 10 30 15 5-5 15-15 30-15 30 0 50 20 50 50 0 40-60 90-80 110z" />
@@ -231,7 +239,7 @@ export default function App() {
               initial={{ scale: 0.5, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 1.5, ease: "easeOut" }}
-              className="relative w-[280px] h-[280px] md:w-[400px] md:h-[400px] flex flex-col items-center justify-center"
+              className="relative w-[320px] h-[320px] md:w-[480px] md:h-[480px] flex flex-col items-center justify-center"
             >
               <svg viewBox="0 0 200 200" className="absolute inset-0 w-full h-full text-gold fill-none stroke-current stroke-[0.6] drop-shadow-[0_0_14px_rgba(138,109,59,0.4)]">
                 <path d="M100 180c-20-20-80-70-80-110 0-30 20-50 50-50 15 0 25 10 30 15 5-5 15-15 30-15 30 0 50 20 50 50 0 40-60 90-80 110z" />
@@ -243,10 +251,10 @@ export default function App() {
                 transition={{ delay: 0.8, duration: 1 }}
                 className="text-center z-10"
               >
-                <span className="text-[10px] uppercase tracking-[0.45em] text-gold-dark/70 font-semibold block mb-4">Together Forever</span>
-                <h1 className="text-5xl md:text-7xl font-display text-ink mb-2 leading-none">Viraj</h1>
+                <span className="text-[11px] md:text-xs uppercase tracking-[0.4em] md:tracking-[0.5em] text-gold-dark/70 font-semibold block mb-3">Together Forever</span>
+                <h1 className="text-5xl md:text-6xl font-display text-ink mb-2 leading-none">Yasiru</h1>
                 <span className="text-3xl md:text-4xl font-serif italic text-gold block mb-2">&</span>
-                <h1 className="text-5xl md:text-7xl font-display text-ink leading-none">Sandu</h1>
+                <h1 className="text-5xl md:text-6xl font-display text-ink leading-none">Shrini</h1>
               </motion.div>
             </motion.div>
           </div>
@@ -267,7 +275,7 @@ export default function App() {
                 />
               ))}
             </div>
-            <p className="text-[10px] uppercase tracking-[0.35em] text-stone-500 mt-4">Crafting your invitation experience</p>
+            <p className="text-[10px] uppercase tracking-[0.35em] text-stone-800 mt-4">Crafting your invitation experience</p>
           </motion.div>
         </motion.div>
       ) : !showWebsite ? (
@@ -285,7 +293,7 @@ export default function App() {
             <div className="envelope-heading text-center mb-10">
               <span className="text-[10px] uppercase tracking-[0.45em] text-gold-dark/70 font-semibold">Wedding Invitation</span>
               <h2 className="text-4xl md:text-5xl font-display mt-3 mb-2">A Sealed Letter of Love</h2>
-              <p className="text-stone-500 font-serif italic text-lg">Open the wax seal to reveal your exclusive invitation.</p>
+              <p className="text-stone-800 font-serif italic text-lg">Open the wax seal to reveal your exclusive invitation.</p>
             </div>
 
             <div className={`envelope ${isEnvelopeOpened ? 'open' : ''}`}>
@@ -294,18 +302,28 @@ export default function App() {
 
               <div className="envelope-card">
                 <Sparkles className="text-gold mb-4" size={26} />
-                <h2 className="text-3xl font-display mb-4">You Are Gracefully Invited</h2>
-                <p className="text-stone-500 font-serif italic text-lg mb-6">
+                {guestName ? (
+                  <>
+                    <h3 className="text-xl md:text-2xl font-display text-gold-dark mb-1">
+                      Dear {guestPrefix && guestPrefix !== 'No Prefix' ? guestPrefix + ' ' : ''}{guestName},
+                    </h3>
+                    <h2 className="text-2xl md:text-3xl font-display mb-4">You Are Gracefully Invited</h2>
+                  </>
+                ) : (
+                  <h2 className="text-3xl font-display mb-4">You Are Gracefully Invited</h2>
+                )}
+                <p className="text-stone-800 font-serif italic text-lg mb-6">
                   To witness and bless the union of <br />
-                  <span className="text-gold-dark font-bold not-italic tracking-wide">Viraj & Sandu</span>
+                  <span className="text-gold-dark font-bold not-italic tracking-wide">Yasiru & Shrini</span>
                 </p>
                 <div className="h-px w-12 bg-gold/30 mb-6" />
-                <p className="text-stone-400 text-[10px] uppercase tracking-[0.3em]">A private invitation awaits inside</p>
+                <p className="text-stone-700 text-[10px] uppercase tracking-[0.3em]">A private invitation awaits inside</p>
               </div>
 
               <motion.div
-                whileHover={{ scale: 1.08 }}
-                whileTap={{ scale: 0.97 }}
+                initial={{ x: "-50%", y: "-50%" }}
+                whileHover={{ scale: 1.08, x: "-50%", y: "-50%" }}
+                whileTap={{ scale: 0.97, x: "-50%", y: "-50%" }}
                 className="gold-seal"
                 onClick={handleOpenEnvelope}
               >
@@ -319,7 +337,7 @@ export default function App() {
                 animate={{ opacity: 1 }}
                 className="text-center mt-10"
               >
-                <p className="text-stone-500 font-serif italic text-xl animate-pulse">
+                <p className="text-stone-800 font-serif italic text-xl animate-pulse">
                   Tap the wax seal to open
                 </p>
               </motion.div>
@@ -377,7 +395,7 @@ export default function App() {
               {/* Vertical Rail Text */}
               <div className="absolute left-8 bottom-12 hidden md:block">
                 <span className="vertical-text text-[10px] uppercase tracking-[0.8em] text-white/60 font-medium">
-                  EST. MAY TWENTY EIGHTH • TWO THOUSAND TWENTY SIX
+                  EST. DECEMBER FOURTEENTH • TWO THOUSAND TWENTY SIX
                 </span>
               </div>
             </div>
@@ -397,19 +415,19 @@ export default function App() {
                 </div>
                 
                 <h1 className="text-7xl md:text-[120px] leading-[0.85] mb-12 font-display">
-                  Viraj <br />
-                  <span className="italic text-gold-dark ml-8 md:ml-16">&</span> Sandu
+                  Yasiru <br />
+                  <span className="italic text-gold-dark ml-8 md:ml-16">&</span> Shrini
                 </h1>
 
                 <div className="flex flex-col gap-6">
                   <div className="flex items-baseline gap-4">
-                    <span className="text-5xl font-serif italic text-gold">28</span>
+                    <span className="text-5xl font-serif italic text-gold">14</span>
                     <div className="flex flex-col">
-                      <span className="text-xs uppercase tracking-widest font-bold">May</span>
-                      <span className="text-xs uppercase tracking-widest text-stone-400">2026</span>
+                      <span className="text-xs uppercase tracking-widest font-bold">Dec</span>
+                      <span className="text-xs uppercase tracking-widest text-stone-700">2026</span>
                     </div>
                   </div>
-                  <p className="text-stone-500 font-serif italic text-xl max-w-sm">
+                  <p className="text-stone-800 font-serif italic text-xl max-w-sm">
                     Join us as we celebrate a love that was written in the stars.
                   </p>
                 </div>
@@ -420,7 +438,7 @@ export default function App() {
                 style={{ opacity }}
                 className="absolute bottom-12 right-12 flex flex-col items-center gap-4"
               >
-                <span className="vertical-text text-[9px] uppercase tracking-[0.4em] text-stone-400">Scroll</span>
+                <span className="vertical-text text-[9px] uppercase tracking-[0.4em] text-stone-700">Scroll</span>
                 <motion.div 
                   animate={{ y: [0, 12, 0] }}
                   transition={{ repeat: Infinity, duration: 2 }}
@@ -448,7 +466,7 @@ export default function App() {
                 ))}
               </div>
               <div className="mt-12 text-center">
-                <p className="text-stone-400 uppercase tracking-[0.3em] text-[10px]">Countdown to our forever</p>
+                <p className="text-stone-700 uppercase tracking-[0.3em] text-[10px]">Countdown to our forever</p>
               </div>
             </div>
           </section>
@@ -471,12 +489,32 @@ export default function App() {
                     The <br />
                     <span className="italic text-gold">Invitation</span>
                   </h2>
-                  <div className="space-y-8 text-stone-600 font-serif text-xl italic leading-relaxed">
+                  <div className="space-y-6 text-stone-800 font-serif text-xl italic leading-relaxed">
                     <p>
-                      "In all the world, there is no heart for me like yours. In all the world, there is no love for you like mine."
+                      And so, our next chapter begins.
                     </p>
                     <p>
-                      We request the honor of your presence as we exchange our vows and begin our new life together.
+                      Not because our story has reached its end,<br />
+                      but because the best part<br />
+                      is only beginning.
+                    </p>
+                    <p>
+                      With grateful hearts<br />
+                      and the blessings of our families,<br />
+                    </p>
+                    <p className="text-[16px] leading-relaxed not-italic font-sans text-stone-800 mb-2">
+                      Anura Wijenayake & Renuka Abegunawadhana<br />
+                      <span className="italic font-serif">and</span><br />
+                      Anura Wijewardhana & Sriyani Lokuge
+                    </p>
+                    <p className="text-3xl text-gold-dark font-display not-italic my-4">
+                      Yasiru & Shrini
+                    </p>
+                    <p>
+                      invite you to witness<br />
+                      the promise we make to each other - <br />
+                      to walk through every season of life,<br />
+                      together.
                     </p>
                   </div>
                 </motion.div>
@@ -489,7 +527,7 @@ export default function App() {
                 >
                   <div className="w-full h-full rounded-t-full overflow-hidden">
                     <img 
-                      src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&q=80&w=1000" 
+                      src="/WhatsApp Image 2026-09-19 at 01.25.35.jpeg" 
                       alt="Invitation Detail" 
                       className="w-full h-full object-cover"
                       referrerPolicy="no-referrer"
@@ -514,15 +552,15 @@ export default function App() {
                 </div>
                 <div className="h-px flex-1 bg-gold/20 mx-8 hidden md:block" />
                 <div className="text-right">
-                  <span className="text-stone-400 font-serif italic text-xl">Monarch Imperial</span>
+                  <span className="text-stone-400 font-serif italic text-xl">Hotel Green Court</span>
                 </div>
               </div>
 
               <div className="grid md:grid-cols-3 gap-px bg-gold/20 border border-gold/20">
                 {[
-                  { icon: <Calendar size={24} />, title: "The Date", detail: "Thursday, May 28", sub: "2026" },
-                  { icon: <Clock size={24} />, title: "The Time", detail: "06:30 PM", sub: "Arrival & Cocktails" },
-                  { icon: <MapPin size={24} />, title: "The Venue", detail: "Monarch Imperial", sub: "Sri Jayawardenepura Kotte" }
+                  { icon: <Calendar size={24} />, title: "The Date", detail: "Monday, Dec 14", sub: "2026" },
+                  { icon: <Clock size={24} />, title: "The Time", detail: "09:30 AM", sub: "Registration at 11:00 AM" },
+                  { icon: <MapPin size={24} />, title: "The Venue", detail: "Hotel Green Court", sub: "Homagama" }
                 ].map((item, i) => (
                   <motion.div 
                     key={i}
@@ -543,36 +581,23 @@ export default function App() {
 
           {/* Venue Location */}
           <section className="py-32 bg-ivory border-t border-gold/10">
-            <div className="max-w-6xl mx-auto px-8">
-              <div className="grid md:grid-cols-2 gap-10 items-center">
+            <div className="max-w-3xl mx-auto px-8">
+              <div className="flex flex-col items-center">
                 <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  className="rounded-3xl overflow-hidden border border-gold/20 shadow-2xl"
-                >
-                  <img
-                    src="/1.jpg"
-                    alt="Venue Location"
-                    className="w-full h-[360px] md:h-[460px] object-cover"
-                  />
-                </motion.div>
-
-                <motion.div
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  className="bg-white border border-gold/20 rounded-3xl p-8 md:p-12"
+                  className="bg-white border border-gold/20 rounded-3xl p-8 md:p-16 w-full text-center"
                 >
                   <span className="text-gold-dark uppercase tracking-[0.4em] text-[10px] font-bold block mb-4">Venue Location</span>
-                  <h2 className="text-4xl md:text-5xl font-display mb-6">Monarch Imperial</h2>
-                  <p className="text-stone-500 font-serif italic text-xl mb-8">Sri Jayawardenepura Kotte, Sri Lanka</p>
-                  <div className="space-y-3 text-stone-500 text-sm uppercase tracking-[0.2em]">
-                    <p>Thursday, May 28, 2026</p>
-                    <p>06:30 PM Onwards</p>
+                  <h2 className="text-4xl md:text-5xl font-display mb-6">Hotel Green Court</h2>
+                  <p className="text-stone-800 font-serif italic text-xl mb-8">Homagama, Sri Lanka</p>
+                  <div className="space-y-3 text-stone-800 text-sm uppercase tracking-[0.2em]">
+                    <p>Monday, December 14, 2026</p>
+                    <p>09:30 AM - 04:00 PM</p>
                   </div>
                   <a
-                    href="https://maps.google.com/?q=Monarch+Imperial+Sri+Jayawardenepura+Kotte"
+                    href="https://maps.app.goo.gl/Qk4HY5JBWeAUs7FTA?g_st=ipc"
                     target="_blank"
                     rel="noreferrer"
                     className="mt-10 inline-flex items-center gap-3 px-8 py-4 bg-ink text-ivory rounded-full text-[10px] uppercase tracking-[0.35em] font-bold hover:bg-gold transition-colors"
@@ -595,13 +620,13 @@ export default function App() {
               >
                 <Sparkles className="text-gold mx-auto mb-8" size={32} />
                 <h2 className="text-5xl md:text-6xl font-display mb-6">Will You Join Us?</h2>
-                <p className="text-stone-400 font-serif italic text-xl mb-16">
+                <p className="text-stone-700 font-serif italic text-xl mb-16">
                   Kindly respond by the thirtieth of April
                 </p>
                 
                 <form className="space-y-10 text-left" onSubmit={handleRsvpSubmit}>
                   <div>
-                    <label className="text-[10px] uppercase tracking-[0.35em] font-bold text-stone-400 block mb-3">Full Name</label>
+                    <label className="text-[10px] uppercase tracking-[0.35em] font-bold text-stone-700 block mb-3">Full Name</label>
                     <input
                       type="text"
                       placeholder="John & Jane Doe"
@@ -610,19 +635,19 @@ export default function App() {
                         setRsvpStatus("idle");
                         setRsvpForm((prev) => ({ ...prev, fullName: e.target.value }));
                       }}
-                      className="w-full bg-transparent border border-gold/30 rounded-2xl px-5 py-4 focus:border-gold outline-none transition-all font-serif italic text-xl placeholder:text-stone-500"
+                      className="w-full bg-transparent border border-gold/30 rounded-2xl px-5 py-4 focus:border-gold outline-none transition-all font-serif italic text-xl placeholder:text-stone-800"
                     />
                   </div>
 
                   <div>
-                    <label className="text-[10px] uppercase tracking-[0.35em] font-bold text-stone-400 block mb-3">Guests</label>
+                    <label className="text-[10px] uppercase tracking-[0.35em] font-bold text-stone-700 block mb-3">Guests</label>
                     <select
                       value={rsvpForm.guests}
                       onChange={(e) => {
                         setRsvpStatus("idle");
                         setRsvpForm((prev) => ({ ...prev, guests: e.target.value }));
                       }}
-                      className="w-full bg-transparent border border-gold/30 rounded-2xl px-5 py-4 focus:border-gold outline-none transition-all text-stone-600"
+                      className="w-full bg-transparent border border-gold/30 rounded-2xl px-5 py-4 focus:border-gold outline-none transition-all text-stone-900"
                     >
                       <option>1 Guest (Just Me)</option>
                       <option>2 Guests</option>
@@ -632,7 +657,7 @@ export default function App() {
                   </div>
 
                   <div>
-                    <label className="text-[10px] uppercase tracking-[0.35em] font-bold text-stone-400 block mb-3">Dietary Notes</label>
+                    <label className="text-[10px] uppercase tracking-[0.35em] font-bold text-stone-700 block mb-3">Dietary Notes</label>
                     <textarea
                       rows={4}
                       placeholder="Allergies, Vegan, etc."
@@ -641,7 +666,7 @@ export default function App() {
                         setRsvpStatus("idle");
                         setRsvpForm((prev) => ({ ...prev, dietaryNotes: e.target.value }));
                       }}
-                      className="w-full bg-transparent border border-gold/30 rounded-2xl px-5 py-4 focus:border-gold outline-none transition-all text-stone-600 resize-none"
+                      className="w-full bg-transparent border border-gold/30 rounded-2xl px-5 py-4 focus:border-gold outline-none transition-all text-stone-900 resize-none"
                     />
                   </div>
 
@@ -677,7 +702,7 @@ export default function App() {
               >
                 <Heart className="text-gold mx-auto mb-6" size={28} />
                 <h2 className="text-5xl md:text-6xl font-display mb-4">Blessings & Wishes</h2>
-                <p className="text-stone-500 font-serif italic text-xl">Share your love and warm words for our new journey.</p>
+                <p className="text-stone-800 font-serif italic text-xl">Share your love and warm words for our new journey.</p>
               </motion.div>
 
               <motion.form
@@ -729,13 +754,19 @@ export default function App() {
           <footer className="py-24 bg-ivory-dark text-center">
             <div className="max-w-4xl mx-auto px-8">
               <div className="h-px w-full bg-gold/10 mb-16" />
-              <h2 className="text-4xl font-display mb-4">V <span className="text-gold italic">&</span> S</h2>
-              <p className="text-[9px] uppercase tracking-[0.6em] text-stone-400 mb-12">Viraj & Sandu • 2026</p>
+              <h2 className="text-4xl font-display mb-4">Y <span className="text-gold italic">&</span> S</h2>
+              <p className="text-[9px] uppercase tracking-[0.6em] text-stone-700 mb-12">Yasiru & Shrini • 2026</p>
               <div className="flex justify-center gap-8 text-gold/40">
                 <Heart size={16} />
                 <Sparkles size={16} />
                 <Heart size={16} />
               </div>
+              <p className="text-gold-dark text-xs mt-12 font-sans tracking-wider">
+                Want a beautiful wedding website like this? Create yours with{' '}
+                <a target="_blank" rel="noreferrer" className="text-stone-800 font-bold hover:text-gold underline transition-colors" href="https://wa.me/94707819074">
+                  invitemint
+                </a>
+              </p>
             </div>
           </footer>
         </motion.div>

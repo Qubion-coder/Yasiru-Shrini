@@ -1,4 +1,4 @@
-const SPREADSHEET_ID = "1C6oRV6IzicPtWbywRrA9dXrgpNKlVTwySyfiGfzEJug";
+const SPREADSHEET_ID = "1rX-5YkZ4Z6bamyOJtO___em-MNO9iGakJOOWViEgaQk";
 const RSVP_SHEET_NAME = "rsvp";
 const WISH_SHEET_NAME = "wish";
 
