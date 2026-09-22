@@ -384,9 +384,9 @@ export default function App() {
                 className="absolute inset-0"
               >
                 <img 
-                  src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=2000" 
+                  src="/Screenshot%202026-09-23%20002926.png" 
                   alt="Wedding Background" 
-                  className="w-full h-full object-cover grayscale-[0.2] brightness-90"
+                  className="w-full h-full object-cover object-top grayscale-[0.2] brightness-90"
                   referrerPolicy="no-referrer"
                 />
               </motion.div>
