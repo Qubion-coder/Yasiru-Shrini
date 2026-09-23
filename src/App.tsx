@@ -122,6 +122,7 @@ export default function App() {
 
   const handleOpenEnvelope = () => {
     setIsEnvelopeOpened(true);
+    setIsMuted(false);
     setTimeout(() => {
       setShowWebsite(true);
     }, 5000); // Delay to show the card before loading site
@@ -158,20 +159,25 @@ export default function App() {
     audio.volume = 0.4;
     audio.muted = isMuted;
 
-    if (showWebsite && !isMuted) {
+    if (!isMuted) {
       void audio.play().catch(() => {
         // Playback can fail until a user interaction occurs.
       });
-    }
-
-    if (isMuted) {
+    } else {
       audio.pause();
     }
-  }, [isMuted, showWebsite]);
+  }, [isMuted]);
 
   return (
-    <AnimatePresence mode="wait">
-      {isLoading ? (
+    <>
+      <audio
+        ref={audioRef}
+        src="/paulyudin-wedding-485932.mp3"
+        loop
+        preload="auto"
+      />
+      <AnimatePresence mode="wait">
+        {isLoading ? (
         <motion.div
           key="heart-loader"
           initial={{ opacity: 0 }}
@@ -352,12 +358,6 @@ export default function App() {
           transition={{ duration: 1.5 }}
           className="relative min-h-screen bg-ivory text-ink selection:bg-gold/20 selection:text-gold-dark overflow-x-hidden font-sans"
         >
-          <audio
-            ref={audioRef}
-            src="/paulyudin-wedding-485932.mp3"
-            loop
-            preload="auto"
-          />
 
           {/* Scroll Progress Rail */}
           <motion.div 
@@ -772,6 +772,7 @@ export default function App() {
         </motion.div>
       )}
     </AnimatePresence>
+    </>
   );
 }
 
