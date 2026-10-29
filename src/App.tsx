@@ -12,7 +12,7 @@ import { motion, useScroll, useTransform, AnimatePresence } from "motion/react";
 import { Calendar, Clock, MapPin, Heart, Volume2, VolumeX, Sparkles } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 
-const WEDDING_DATE = new Date("2026-12-14T09:30:00");
+const WEDDING_DATE = new Date("2026-12-14T10:15:00");
 const GOOGLE_SCRIPT_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyD_0AG5814ADff37DqPP8qdNNArxs_uCnMDA7jDNFWWqyV60G4I7fQ0udF3ewLPEmq3g/exec";
 
 export default function App() {
@@ -559,7 +559,7 @@ export default function App() {
               <div className="grid md:grid-cols-3 gap-px bg-gold/20 border border-gold/20">
                 {[
                   { icon: <Calendar size={24} />, title: "The Date", detail: "Monday, Dec 14", sub: "2026" },
-                  { icon: <Clock size={24} />, title: "The Time", detail: "09:30 AM", sub: "Registration at 11:00 AM" },
+                  { icon: <Clock size={24} />, title: "The Time", detail: "10:15 AM", sub: "Registration · Poruwa Ceremony at 11:00 AM" },
                   { icon: <MapPin size={24} />, title: "The Venue", detail: "Hotel Green Court", sub: "Homagama" }
                 ].map((item, i) => (
                   <motion.div 
@@ -594,7 +594,7 @@ export default function App() {
                   <p className="text-stone-800 font-serif italic text-xl mb-8">Homagama, Sri Lanka</p>
                   <div className="space-y-3 text-stone-800 text-sm uppercase tracking-[0.2em]">
                     <p>Monday, December 14, 2026</p>
-                    <p>09:30 AM - 04:00 PM</p>
+                    <p>10:15 AM - 04:00 PM</p>
                   </div>
                   <a
                     href="https://maps.app.goo.gl/Qk4HY5JBWeAUs7FTA?g_st=ipc"
